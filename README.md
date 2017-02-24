@@ -1,2 +1,2 @@
-# jenkins-pipeline-library
-Public repository for Jenkins pipeline steps.
+# android-pipeline-library
+Public repository for Android based Jenkins pipeline steps.
