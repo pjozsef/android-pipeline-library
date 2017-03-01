@@ -7,7 +7,6 @@ def call(Map args){
             throw e
         } finally {
             if(args['andArchive']){
-                archiveArtifacts
                 junit args['andArchive']
                 archiveArtifacts args['andArchive']
             }
