@@ -1,4 +1,7 @@
-def call(int expectedCount) {
+def call(expectedCount) {
+    if(expectedCount instanceof String){
+        expectedCount = expectedCount as Integer
+    }
     def output = sh(script: "${env.ANDROID_HOME}platform-tools/adb devices", returnStdout: true)
     def outputLines = output
             .tokenize("\r?\n")
