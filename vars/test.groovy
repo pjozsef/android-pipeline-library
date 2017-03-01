@@ -1,11 +1,13 @@
-def call(){
+def call(Map args){
     try{
         sh './gradlew test'
     } catch(e){
         currentBuild.result = 'FAILURE'
         throw e
     } finally {
-        junit '**/test-results/**/*.xml'
-        archiveArtifacts '**/test-results/**/*.xml'
+        if(args['andArchive']){
+            junit args['andArchive']
+            archiveArtifacts args['andArchive']
+        }
     }
 }
