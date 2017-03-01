@@ -1,4 +1,6 @@
-def call(String andArchive){
+def call(Map args){
     sh './gradlew clean build -x lint -x test'
-    archiveArtifacts andArchive
+    if(args['andArchive']){
+        archiveArtifacts args['andArchive']
+    }
 }
