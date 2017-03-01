@@ -1,4 +1,4 @@
-def call(String archive){
+def call(String andArchive){
     sh './gradlew clean build -x lint -x test'
-    archiveArtifacts archive
+    archiveArtifacts andArchive
 }
