@@ -3,7 +3,7 @@ def call(expectedCount) {
         expectedCount = expectedCount as Integer
     }
 
-    Class DeviceLister = ((GroovyClassLoader) this.class.classLoader).parseClass new File("lib/DeviceLister.groovy")
+    Class DeviceLister = ((GroovyClassLoader) this.class.classLoader).parseClass new File("./lib/DeviceLister.groovy")
     def size = DeviceLister.newInstance().availableDevices().size()
 
     if (size != expectedCount) {
