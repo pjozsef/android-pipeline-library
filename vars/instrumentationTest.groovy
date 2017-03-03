@@ -1,5 +1,5 @@
 def call(Map args){
-    def enabled = args['withScreenOn']?.toBoolean() ?: true
+    def enabled = args['withScreenOn'] ?: true
     Closure withScreen = {
         if(enabled){
             pressPowerButton()
