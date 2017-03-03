@@ -8,7 +8,7 @@ class DeviceLister {
     }
 
     def availableDevices(){
-        def output = sh(script: "${androidHome}platform-tools/adb devices", returnStdout: true)
+        def output = "${androidHome}platform-tools/adb devices".execute().text
         def outputLines = output
                 .tokenize("\r?\n")
         def available = []
