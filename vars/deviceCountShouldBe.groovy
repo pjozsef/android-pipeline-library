@@ -1,10 +1,11 @@
+import com.github.pjozsef.DeviceLister
+
 def call(expectedCount) {
     if(expectedCount instanceof String){
         expectedCount = expectedCount as Integer
     }
 
-    Class DeviceLister = ((GroovyClassLoader) this.class.classLoader).parseClass new File("./lib/DeviceLister.groovy")
-    def size = DeviceLister.newInstance().availableDevices().size()
+    def size = new DeviceLister().availableDevices().size()
 
     if (size != expectedCount) {
         currentBuild.result = 'FAILURE'

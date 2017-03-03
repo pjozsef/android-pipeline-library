@@ -1,3 +1,5 @@
+package com.github.pjozsef
+
 class DeviceLister {
     def availableDevices(){
         def output = sh(script: "${env.ANDROID_HOME}platform-tools/adb devices", returnStdout: true)
