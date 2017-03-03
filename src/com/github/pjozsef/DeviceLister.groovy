@@ -11,12 +11,11 @@ class DeviceLister {
         def output = "${androidHome}platform-tools/adb devices".execute().text
         def outputLines = output
                 .tokenize("\r?\n")
-        def available = []
-        outputLines
                 .drop(1)
-                .each {
-            if (it.contains("device") && !it.contains("no device")) {
-                available += it.split("\\s+")[0]
+        def available = []
+        for(line in outputLines){
+            if (line.contains("device") && !line.contains("no device")) {
+                available += line.split("\\s+")[0]
             }
         }
         return available
