@@ -1,8 +1,14 @@
 package com.github.pjozsef
 
 class DeviceLister {
+    def androidHome
+
+    DeviceLister(androidHome){
+        this.androidHome = androidHome
+    }
+
     def availableDevices(){
-        def output = sh(script: "${env.ANDROID_HOME}platform-tools/adb devices", returnStdout: true)
+        def output = sh(script: "${androidHome}platform-tools/adb devices", returnStdout: true)
         def outputLines = output
                 .tokenize("\r?\n")
         def available = []
