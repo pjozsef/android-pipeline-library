@@ -9,7 +9,7 @@ def call(expectedCount) {
 
     if (size != expectedCount) {
         currentBuild.result = 'FAILURE'
-        def message = "Currently available devices are ${size}, but should be ${expectedCount}!}"
+        def message = "Currently available devices are ${size}, but should be ${expectedCount}!"
         throw new IllegalStateException(message)
     }
 }
