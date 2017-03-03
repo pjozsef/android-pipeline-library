@@ -1,5 +1,6 @@
 def call(Map args){
     Closure cAT = {
+        pressPowerButton()
         try {
             sh './gradlew cAT'
         } catch (e) {
@@ -10,6 +11,7 @@ def call(Map args){
                 junit args['andArchive']
                 archiveArtifacts args['andArchive']
             }
+            pressPowerButton()
         }
     }
     if(args['withLock']){
