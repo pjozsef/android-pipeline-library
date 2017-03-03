@@ -16,7 +16,7 @@ class DeviceLister {
                 .drop(1)
                 .each {
             if (it.contains("device") && !it.contains("no device")) {
-                available += it.split(" ")[0]
+                available += it.split("\\s+")[0]
             }
         }
         return available
