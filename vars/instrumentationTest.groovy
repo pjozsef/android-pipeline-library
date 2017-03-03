@@ -1,6 +1,12 @@
 def call(Map args){
+    def enabled = args['withScreenOn']?.toBoolean() ?: true
+    Closure withScreen = {
+        if(enabled){
+            pressPowerButton()
+        }
+    }
     Closure cAT = {
-        pressPowerButton()
+        withScreen()
         try {
             sh './gradlew cAT'
         } catch (e) {
@@ -11,7 +17,7 @@ def call(Map args){
                 junit args['andArchive']
                 archiveArtifacts args['andArchive']
             }
-            pressPowerButton()
+            withScreen()
         }
     }
     if(args['withLock']){
