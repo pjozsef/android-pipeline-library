@@ -14,7 +14,7 @@ class DeviceLister {
                 .drop(1)
         def available = []
         for(line in outputLines){
-            if (line.contains("device") && !line.contains("no device")) {
+            if (line.contains("device")) {
                 available += line.split("\\s+")[0]
             }
         }
