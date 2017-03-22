@@ -3,21 +3,33 @@ package com.github.pjozsef
 class DeviceLister {
     def androidHome
 
-    DeviceLister(androidHome){
+    DeviceLister(androidHome) {
         this.androidHome = androidHome
     }
 
-    def availableDevices(){
-        def output = "${androidHome}platform-tools/adb devices".execute().text
-        def outputLines = output
+    def devicesRawVerbose() {
+        return "${androidHome}platform-tools/adb devices -l".execute().text
+    }
+
+    def devicesRaw() {
+        return "${androidHome}platform-tools/adb devices".execute().text
+    }
+
+    def devices() {
+        def deviceLines = devicesRaw()
                 .tokenize("\r?\n")
                 .drop(1)
-        def available = []
-        for(line in outputLines){
-            if (line.contains("device")) {
-                available += line.split("\\s+")[0]
-            }
+        def result = [:]
+        for(line in deviceLines){
+            def split = line.tokenize("\t+")
+            def name = split[0]
+            def state = split[1]
+            result[state] = result.get(state, []) + name
         }
-        return available
+        return result
+    }
+
+    def availableDevices() {
+        return devices().get('device', [])
     }
 }

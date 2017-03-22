@@ -5,7 +5,11 @@ def call(expectedCount) {
         expectedCount = expectedCount as Integer
     }
 
-    def size = new DeviceLister(env.ANDROID_HOME).availableDevices().size()
+    def deviceLister = new DeviceLister(env.ANDROID_HOME)
+
+    echo deviceLister.devicesRawVerbose()
+
+    def size = deviceLister.availableDevices().size()
 
     if (size != expectedCount) {
         currentBuild.result = 'FAILURE'
