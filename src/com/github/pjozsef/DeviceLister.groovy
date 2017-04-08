@@ -3,6 +3,7 @@ package com.github.pjozsef
 class DeviceLister {
     def androidHome
 
+    @com.cloudbees.groovy.cps.NonCPS
     DeviceLister(androidHome) {
         this.androidHome = androidHome
     }
