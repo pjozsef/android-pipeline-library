@@ -11,8 +11,8 @@ class DeviceCommander {
 
     def execute(command){
         for(device in devices){
-            "echo Executing $command on $device".execute()
-            "${androidHome}platform-tools/adb -s $device $command".execute()
+            "echo Executing $command on $device".execute().text
+            "${androidHome}platform-tools/adb -s $device $command".execute().text
         }
     }
 }
