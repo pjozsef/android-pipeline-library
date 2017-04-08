@@ -5,7 +5,7 @@ def call(Map args){
         new DeviceCommander(env.ANDROID_HOME, args['devices']).execute("reboot")
     }
     Closure wait = {
-        if(args['withSleep']){
+        if(args['sleep']){
             def duration = args['sleep']
             def unit = args['unit'] ?: 'SECONDS'
             sleep time: duration, unit: unit
