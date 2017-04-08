@@ -29,7 +29,6 @@ class DeviceLister {
         return result
     }
 
-    @com.cloudbees.groovy.cps.NonCPS
     def availableDevices() {
         return devices().get('device', [])
     }

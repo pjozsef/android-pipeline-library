@@ -4,9 +4,9 @@ class DeviceCommander {
     def androidHome
     def devices
 
-    DeviceCommander(androidHome, devices = null) {
+    DeviceCommander(androidHome, devices) {
         this.androidHome = androidHome
-        this.devices = new DeviceLister(androidHome).availableDevices()
+        this.devices = devices
     }
 
     def execute(command){
