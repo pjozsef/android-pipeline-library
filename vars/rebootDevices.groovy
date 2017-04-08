@@ -1,3 +1,5 @@
+import com.github.pjozsef.DeviceCommander
+
 def call(Map args){
     Closure reboot = {
         new DeviceCommander(env.ANDROID_HOME, args['devices']).execute("reboot")
