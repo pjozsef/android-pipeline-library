@@ -3,7 +3,6 @@ package com.github.pjozsef
 class DeviceLister {
     def androidHome
 
-    @com.cloudbees.groovy.cps.NonCPS
     DeviceLister(androidHome) {
         this.androidHome = androidHome
     }
@@ -30,6 +29,7 @@ class DeviceLister {
         return result
     }
 
+    @com.cloudbees.groovy.cps.NonCPS
     def availableDevices() {
         return devices().get('device', [])
     }

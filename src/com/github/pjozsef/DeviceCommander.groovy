@@ -4,7 +4,6 @@ class DeviceCommander {
     def androidHome
     def devices
 
-    @com.cloudbees.groovy.cps.NonCPS
     DeviceCommander(androidHome, devices = null) {
         this.androidHome = androidHome
         this.devices = new DeviceLister(androidHome).availableDevices()
