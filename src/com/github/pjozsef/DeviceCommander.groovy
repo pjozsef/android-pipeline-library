@@ -10,10 +10,14 @@ class DeviceCommander {
     }
 
     def execute(command, progress = null) {
+        def result = [:]
         for (device in devices) {
             progress?.call("Executing $command on $device")
             def output = "${androidHome}platform-tools/adb -s $device $command".execute().text
             progress?.call(output)
+
+            result[device] = output
         }
+        return result
     }
 }
