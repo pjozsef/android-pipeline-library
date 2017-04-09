@@ -9,12 +9,11 @@ class DeviceCommander {
         this.devices = devices
     }
 
-    def execute(command, progress = null){
-        for(device in devices){
-            if(progress){
-                progress "Executing $command on $device"
-            }
-            "${androidHome}platform-tools/adb -s $device $command".execute().text
+    def execute(command, progress = null) {
+        for (device in devices) {
+            progress?.call("Executing $command on $device")
+            def output = "${androidHome}platform-tools/adb -s $device $command".execute().text
+            progress?.call(output)
         }
     }
 }
