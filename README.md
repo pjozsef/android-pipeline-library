@@ -149,8 +149,8 @@ for(e in result){
     echo "$e.key -> $e.value"
 }
 //prints
-12345678987876 ->   level: 94
-98765432123451 ->   level: 67
+//12345678987876 ->   level: 94
+//98765432123451 ->   level: 67
 
 ```
 
