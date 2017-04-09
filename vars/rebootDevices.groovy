@@ -23,6 +23,5 @@ def call(Map args){
         }
     }else{
         reboot()
-        wait()
     }
 }
