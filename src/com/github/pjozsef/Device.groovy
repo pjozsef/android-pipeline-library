@@ -13,6 +13,6 @@ class Device {
 
     @Override
     String toString(){
-        return "$name, $status, $usb, $product, $model, $device"
+        return "Device($name, $status, $usb, $product, $model, $device)"
     }
 }
