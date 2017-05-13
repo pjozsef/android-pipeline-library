@@ -109,8 +109,10 @@ R32D203L00M            device usb:339804160X product:mantaray model:Nexus_10 dev
 ```
 
 The corresponding Devices objects are:
+```
 Device(0123456789ABCDEF, device, 339804160X, null, null, null)
 Device(R32D203L00M, device, 339804160X, mantaray, Nexus_10, manta)
+```
 
 ### DeviceLister
 This class provides methods to get information about the devices connected.
