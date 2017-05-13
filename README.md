@@ -99,6 +99,18 @@ turnOffScreen()
 ## Utility classes
 This library also comes with some utility classes that might be useful.
 
+### Device
+This class represents the rows of the `adb devices -l` command.
+Given the following output:
+```shell
+List of devices attached
+0123456789ABCDEF       device usb:339804160X
+R32D203L00M            device usb:339804160X product:mantaray model:Nexus_10 device:manta```
+
+The corresponding Devices objects are:
+Device(0123456789ABCDEF, device, 339804160X, null, null, null)
+Device(R32D203L00M, device, 339804160X, mantaray, Nexus_10, manta)
+
 ### DeviceLister
 This class provides methods to get information about the devices connected.
 Don't forget to import the class.
@@ -113,13 +125,12 @@ echo deviceLister.devicesRawVerbose()
 //print the output of adb devices
 echo deviceLister.devicesRaw()
 
-//get information about the connected devices groupped by status
-//a Map<String, List<String>> is returned, where the keys are adb states, like 'device', 'offline', 'unauthorized'. The values are lists of device IDs assigned by adb that are in the state of the key.
-//example: ['device' : ['123456789ABCDEF', '987654321ABCDEF'], 'offline': ['AAABBBCCCDDDEEEFFF']]
+//get information about the connected devices
+//a List<Device> is returned
 def devicesByState = deviceLister.devices()
 
 //get the list of only those devices that are available (with the state of 'device')
-//example: ['123456789ABCDEF', '987654321ABCDEF']
+//a List<Device> is returned
 def availableDevices = deviceLister.availableDevices()
 ```
 
