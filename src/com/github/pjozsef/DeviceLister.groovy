@@ -16,20 +16,34 @@ class DeviceLister {
     }
 
     def devices() {
-        def deviceLines = devicesRaw()
-                .tokenize("\r?\n")
-                .drop(1)
-        def result = [:]
-        for(line in deviceLines){
-            def split = line.tokenize("\t+")
-            def name = split[0]
-            def state = split[1]
-            result[state] = result.get(state, []) + name
+        def devices = []
+
+        def lines = devicesRawVerbose().tokenize("\r?\n")
+        for(line in lines) {
+            def pattern = ~/^(?<name>\w+)\s+(?<status>[a-z]+)\s+usb:(?<usb>\w+)(\s+product:(?<product>[-\w]+)\s+model:(?<model>[-\w]+)\s+device:(?<device>[-\w]+))?$/
+            def matcher = (line =~ pattern)
+            if(matcher.matches()){
+                devices += new Device(
+                        matcher.group("name"),
+                        matcher.group("status"),
+                        matcher.group("usb"),
+                        matcher.group("product"),
+                        matcher.group("model"),
+                        matcher.group("device"))
+            }
         }
-        return result
+
+        return devices
     }
 
     def availableDevices() {
-        return devices().get('device', [])
+        def availableDevices = []
+
+        for(device in devices()){
+            if(device.status == "device"){
+                availableDevices += device
+            }
+        }
+        return availableDevices
     }
 }
