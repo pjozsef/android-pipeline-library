@@ -105,7 +105,8 @@ Given the following output:
 ```shell
 List of devices attached
 0123456789ABCDEF       device usb:339804160X
-R32D203L00M            device usb:339804160X product:mantaray model:Nexus_10 device:manta```
+R32D203L00M            device usb:339804160X product:mantaray model:Nexus_10 device:manta
+```
 
 The corresponding Devices objects are:
 Device(0123456789ABCDEF, device, 339804160X, null, null, null)
