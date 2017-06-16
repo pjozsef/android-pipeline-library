@@ -17,7 +17,7 @@ def call(Map args) {
         def message = "Currently available devices are ${size}, but should be ${expectedCount}!"
         echo message
         if(args['action']){
-            args['action'](devices)
+            args['action'](devices, message)
         } else {
             currentBuild.result = 'FAILURE'
             throw new IllegalStateException(message)
