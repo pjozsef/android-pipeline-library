@@ -30,7 +30,7 @@ lint andArchive: '**/lint-results*.*'
 Runs the unit tests, archives and publishes the test results. This step ensures that the results are archived/published even if the build fails.
 If there is no argument supplied, archiving/publishing is skipped.
 ```groovy
-lint andArchive: '**/lint-results*.*'
+test andArchive: '**/lint-results*.*'
 ```
 | argument      | description                                    | type      | mandatory |
 | :-:           | :-:                                            | :-:       | :-:       |
