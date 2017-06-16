@@ -16,7 +16,7 @@ def call(Map args) {
     if(size != expectedCount) {
         def message = "Currently available devices are ${size}, but should be ${expectedCount}!"
         echo message
-        if(args['action'){
+        if(args['action']){
             args['action'](devices)
         } else {
             currentBuild.result = 'FAILURE'
