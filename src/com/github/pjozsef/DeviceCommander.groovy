@@ -1,6 +1,6 @@
 package com.github.pjozsef
 
-class DeviceCommander {
+class DeviceCommander implements Serializable {
     def androidHome
     def devices
 
