@@ -1,6 +1,6 @@
 package com.github.pjozsef
 
-class DeviceLister {
+class DeviceLister implements Serializable {
     def androidHome
 
     DeviceLister(androidHome) {
