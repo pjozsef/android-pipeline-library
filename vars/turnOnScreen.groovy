@@ -1,7 +1,5 @@
-import com.github.pjozsef.DeviceLister
-
 def call(){
-    def devices = new DeviceLister(env.ANDROID_HOME).availableDevices()
+    def devices = devices(availableOnly: true)
     for(device in devices) {
         def info1 = sh returnStdout: true, script: "${env.ANDROID_HOME}platform-tools/adb -s $device shell dumpsys input_method"
         def info2 = sh returnStdout: true, script: "${env.ANDROID_HOME}platform-tools/adb -s $device shell dumpsys power"

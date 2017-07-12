@@ -1,9 +1,8 @@
 import com.github.pjozsef.DeviceCommander
-import com.github.pjozsef.DeviceLister
 
 def call(Map args){
     Closure reboot = {
-        def devices = args['devices'] ?: new DeviceLister(env.ANDROID_HOME).availableDevices()
+        def devices = args['devices'] ?: devices(availableOnly: true)
         new DeviceCommander(env.ANDROID_HOME, devices).execute("reboot") {
             echo it
         }
