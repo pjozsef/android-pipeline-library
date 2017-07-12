@@ -1,11 +1,7 @@
-import com.github.pjozsef.DeviceCommander
-
 def call(Map args){
     Closure reboot = {
         def devices = args['devices'] ?: devices(availableOnly: true)
-        new DeviceCommander(env.ANDROID_HOME, devices).execute("reboot") {
-            echo it
-        }
+        deviceCommand command: "reboot", devices: devices, verbose: true
     }
     Closure wait = {
         if(args['sleep']){
