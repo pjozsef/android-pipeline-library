@@ -3,5 +3,5 @@ def call(Map args){
     if (args['verbose']) {
         command += " -l"
     }
-    return sh command
+    return sh (returnStdout: true, script: command)
 }
