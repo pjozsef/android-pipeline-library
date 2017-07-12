@@ -1,30 +1,33 @@
-def call(Map args){
+def call(Map args) {
     def enabled = args['withScreenOn'] || args['withScreenOn'] == null
+    def retryCount = args['withRetryCount'] ?: 1
 
     Closure cAT = {
-        if(enabled){
+        if (enabled) {
             turnOnScreen()
         }
         try {
-            sh './gradlew cAT'
+            retry(retryCount) {
+                sh './gradlew cAT'
+            }
         } catch (e) {
             currentBuild.result = 'FAILURE'
             throw e
         } finally {
-            if(args['andArchive']){
+            if (args['andArchive']) {
                 junit args['andArchive']
                 archiveArtifacts args['andArchive']
             }
-            if(enabled){
+            if (enabled) {
                 turnOffScreen()
             }
         }
     }
-    if(args['withLock']){
-        lock(args['withLock']){
+    if (args['withLock']) {
+        lock(args['withLock']) {
             cAT()
         }
-    }else{
+    } else {
         cAT()
     }
 }
