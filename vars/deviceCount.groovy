@@ -1,16 +1,12 @@
-import com.github.pjozsef.DeviceLister
-
 def call(Map args) {
     def expectedCount = args['shouldBe']
     if(expectedCount instanceof String){
         expectedCount = expectedCount as Integer
     }
 
-    def deviceLister = new DeviceLister(env.ANDROID_HOME)
+    echo devicesRaw(verbose: true)
 
-    echo deviceLister.devicesRawVerbose()
-
-    def devices = deviceLister.availableDevices()
+    def devices = devices(availableOnly: true)
     def size = devices.size()
 
     if(size != expectedCount) {
@@ -19,8 +15,7 @@ def call(Map args) {
         if(args['action']){
             args['action'](devices, message)
         } else {
-            currentBuild.result = 'FAILURE'
-            throw new IllegalStateException(message)
+            error(message)
         }
     }
 }
