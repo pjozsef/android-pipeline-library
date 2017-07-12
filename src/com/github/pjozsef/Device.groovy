@@ -3,7 +3,7 @@ package com.github.pjozsef
 import groovy.transform.TupleConstructor
 
 @TupleConstructor()
-class Device {
+class Device implements Serializable {
     def name
     def status
     def usb
