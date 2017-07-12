@@ -18,7 +18,7 @@ def call(Map args) {
         }
     }
 
-    if (args['availableOnly']) {
+    if (args?.get('availableOnly')) {
         def availableDevices = []
         for (device in devices) {
             if (device.status == "device") {
