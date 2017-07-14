@@ -9,7 +9,7 @@ def call(Map args){
             echo "Executing $command on $device"
         }
 
-        def output = "${env.ANDROID_HOME}/platform-tools/adb -s $device.name $command".execute().text
+        def output = sh returnStdout: true, script: "${env.ANDROID_HOME}/platform-tools/adb -s $device.name $command"
 
         if (verbose) {
             echo output
