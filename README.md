@@ -66,8 +66,7 @@ deviceCount shouldBe: 4,
 | argument      | description                                    | type           | mandatory |
 | :-:           | :-:                                            | :-:            | :-:       |
 | shouldBe | The number of devices that should be connected | Integer/String | ✔         |
-| action | The closure/custom action to be invoked if missing devices are detected. It gets the list of available devices and a default error message as parameters. | Closure (List
-Device>, String) -> () | ✘         |
+| action | The closure/custom action to be invoked if missing devices are detected. It gets the list of available devices and a default error message as parameters. | Closure (List\<Device\>, String) -> () | ✘         |
 
 ### devices
 Returns the list of devices as List\<Device\>
