@@ -75,10 +75,10 @@ deviceCount shouldBe: 4,
 | argument      | description                                    | type           | mandatory |
 | :-:           | :-:                                            | :-:            | :-:       |
 | shouldBe | The number of devices that should be connected | Integer/String | ✔         |
-| action | The closure/custom action to be invoked if missing devices are detected. It gets the list of available devices and a default error message as parameters. | Closure (List<Device>, String) -> () | ✘         |
+| action | The closure/custom action to be invoked if missing devices are detected. It gets the list of available devices and a default error message as parameters. | Closure (List\<Device\>, String) -> () | ✘         |
 
 ### devices
-Returns the list of devices as List<Device>
+Returns the list of devices as List\<Device\>
 ```groovy
 def devices = devices availableOnly: true
 ```
@@ -107,7 +107,7 @@ rebootDevices withLock: 'android-device-farm', sleep: 120
 ```
 | argument      | description                                    | type      | mandatory |
 | :-:           | :-:                                            | :-:       | :-:       |
-| devices       | The list of Device instances that should be rebooted. Defaults to all devices when omitted. | List<Device> | ✘ |
+| devices       | The list of Device instances that should be rebooted. Defaults to all devices when omitted. | List\<Device\>  | ✘ |
 | withLock      | Acquires a lock for the duration of this step, so other steps can not interfere with the devices. | String | ✘ |
 | sleep         | The amount of time to wait before the lock is released. Useful to ensure that the devices had enough time to reboot completely, before other jobs can run tests on them, etc.   | Integer    | ✘         |
 | unit          | The time unit. Valid values are: 'NANOSECONDS', 'MICROSECONDS', 'MILLISECONDS', 'SECONDS', 'MINUTES', 'HOURS', 'DAYS'. Defaults to 'SECONDS'. | String | ✘ |
@@ -124,7 +124,7 @@ def adbOutput = deviceCommand command: "shell input keyevent KEYCODE_POWER", ver
 | argument      | description                                    | type           | mandatory |
 | :-:           | :-:                                            | :-:            | :-:       |
 | command | The command to run on the devices | String |   ✔  |
-| devices | When given, the command is only run on the specified devices. Defaults to all available devices  | List<Device> |   ✘  |
+| devices | When given, the command is only run on the specified devices. Defaults to all available devices  | List\<Device\> |   ✘  |
 | verbose | When set to true, logs the command String and the result of the command to the Jenkins Pipeline log. Default value is false | Boolean |   ✘  |
 
 
