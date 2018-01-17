@@ -4,9 +4,9 @@ def call(Map args) {
     def enabled = args['withScreenOn'] || args['withScreenOn'] == null
     def retryCount = args['withRetryCount'] ?: 1
     def runTrulyParallel = args['runTrulyParallel']
-    def stepNames = args['withStepNames']
-    if(stepNames instanceof String){
-        stepNames = new JsonSlurper().parseText(stepNames)
+    def stageNames = args['withStageNames']
+    if(stageNames instanceof String){
+        stageNames = new JsonSlurper().parseText(stageNames)
     }
 
     Closure simpleCat = {
@@ -19,8 +19,8 @@ def call(Map args) {
         def tasks = [:]
         for(device in devices()){
             def id = device.id
-            def stepName = stepNames?.get(id) ?: id
-            tasks[stepName] = {
+            def stageName = stageNames?.get(id) ?: id
+            tasks[stageName] = {
                 withEnv(["ANDROID_SERIAL=$id"]) {
                     retry(retryCount){
                         sh './gradlew cAT'
