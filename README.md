@@ -42,15 +42,24 @@ If there is no andArchive argument supplied, archiving/publishing is skipped.
 The withLock argument requires the presence of the [Lockable Resources Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Lockable+Resources+Plugin).
 Retry count can be specified if needed. By default retry count is 1.
 The withScreenOn argument is set to true by default.
+Gradle doesn't run instrumentation tests truly parallel, it starts them concurrently on devices in batches of ~3. 
+If you'd like to have separate, parallel pipeline steps in your build for instrumentation tests per device, you can do so with runTrulyParallel set to true.
+You can supply a Map/JSON String that will be used for the step names. The given map should map from devices ids (from adb) to the step name.
 ```groovy
-androidInstrumentationTest withScreenOn: true, withLock: 'android-device-farm', withRetryCount: 2, andArchive: '**/androidTest-results/connected/*.xml'
+def stepNames = [
+        "adbDeviceId1": "Step name for Device 1",
+        "adbDeviceId2": "Step name for Device 2"
+        ]
+androidInstrumentationTest withScreenOn: true, withLock: 'android-device-farm', withRetryCount: 2, runTrulyParallel: true, withStepNames: stepNames,  andArchive: '**/androidTest-results/connected/*.xml'
 ```
 | argument      | description                                    | type      | mandatory |
 | :-:           | :-:                                            | :-:       | :-:       |
 | withScreenOn  | When set to true, turns on the device screens before running the instrumentation tests and turns them off when the instrumentation tests are finished. Set to true by default. | Boolean | ✘ |
 | withLock      | Acquires a lock for the duration of this step, so other steps can not interfere with the devices. | String | ✘ |
 | withRetryCount | Specifies whether this step should be retried a number of times in case the instrumentation test faild. Defaults to 1 | Integer | ✘ |
-| andArchive    | The path specifying the artifacts to archive and publish to junit   | String    | ✘         |
+| runTrulyParallel | If set to true, it will run instrumentation tests for each device concurrently in parallel steps. | Boolean | ✘ |
+| withStepNames | If runTrulyParallel is enabled, you can supply a mapping for the names of the parallel steps. They keys must be the adb ids for your devices. If there is a missing entry or no argument defined, the library uses the adb ids as fallback. You can also supply a JSON String. It can be useful if you want to define your mapping as a Jenkins environment variable. | Map\<String, String\> / (JSON)String | ✘ |
+| andArchive    | The path specifying the artifacts to archive and publish to junit   |   String  | ✘ |
 
 ### deviceCount
 Checks whether there are as many connected devices as should be. 
