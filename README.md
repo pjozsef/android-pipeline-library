@@ -4,7 +4,7 @@ This library contains a few pipeline steps that can come handy when dealing with
 
 ## How to use in your own Jenkins setup
 If you are not sure about how to use shared libraries, take a look at the [documentation](https://jenkins.io/doc/book/pipeline/shared-libraries/#using-libraries).
-It is advised to either use a specific commit/tag, instead of always the latest.
+It is advised to either use a specific commit/tag, instead of always the latest version.
 
 ## Pipeline steps
 All steps can be found under the vars folder.
