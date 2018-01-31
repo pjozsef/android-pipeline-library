@@ -1,12 +1,14 @@
 import groovy.json.JsonSlurper
 
 def call(Map args) {
-    def enabled = args['withScreenOn'] || args['withScreenOn'] == null
+    def screenEnabled = args['withScreenOn'] || args['withScreenOn'] == null
     def retryCount = args['withRetryCount'] ?: 1
     def runTrulyParallel = args['runTrulyParallel']
-    def stageNames = args['withStageNames']
-    if(stageNames instanceof String){
-        stageNames = new JsonSlurper().parseText(stageNames)
+    def stepNames = args['withStepNames']
+    if(stepNames instanceof String){
+        def tempMap = [:]
+        tempMap.putAll(new JsonSlurper().parseText(stepNames))
+        stepNames = tempMap
     }
 
     Closure simpleCat = {
@@ -18,23 +20,20 @@ def call(Map args) {
     Closure parallelCat = {
         def tasks = [:]
         for(device in devices()){
-            def id = device.id
-            def stageName = stageNames?.get(id) ?: id
-            tasks[stageName] = {
+            def id = device.name
+            def stepName = stepNames?.get(id) ?: id
+            tasks[stepName] = {
                 withEnv(["ANDROID_SERIAL=$id"]) {
-                    retry(retryCount){
-                        sh './gradlew cAT'
-                    }
+                    simpleCat()
                 }
             }
         }
         tasks['failFast'] = false
-
         parallel tasks
     }
 
     Closure cAT = {
-        if (enabled) {
+        if (screenEnabled) {
             turnOnScreen()
         }
         try {
@@ -45,14 +44,16 @@ def call(Map args) {
             }
         } catch (e) {
             currentBuild.result = 'FAILURE'
+            echo "Android Pipeline Error:"
+            echo e.message
             throw e
         } finally {
+            if (screenEnabled) {
+                turnOffScreen()
+            }
             if (args['andArchive']) {
                 junit args['andArchive']
                 archiveArtifacts args['andArchive']
-            }
-            if (enabled) {
-                turnOffScreen()
             }
         }
     }
