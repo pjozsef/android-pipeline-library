@@ -1,12 +1,12 @@
-import groovy.json.JsonSlurper
-
 def call(Map args) {
     def enabled = args['withScreenOn'] || args['withScreenOn'] == null
     def retryCount = args['withRetryCount'] ?: 1
     def runTrulyParallel = args['runTrulyParallel']
     def stepNames = args['withStepNames']
     if(stepNames instanceof String){
-        stepNames = new JsonSlurper().parseText(stepNames)
+        def tempMap = [:]
+        tempMap.putAll(new groovy.json.JsonSlurper().parseText(stepNames))
+        stepNames = tempMap
     }
 
     Closure simpleCat = {
