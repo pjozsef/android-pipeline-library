@@ -19,7 +19,7 @@ def call(Map args) {
     }
 
     Closure parallelCat = {
-        sh "./gradlew $module:assembleAndroidTest"
+        sh "./gradlew ${module}assembleAndroidTest"
         def tasks = [:]
         for(device in devices()){
             def id = device.name
