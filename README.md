@@ -12,29 +12,32 @@ All steps can be found under the vars folder.
 ### androidBuild
 Builds and archives. If there is no argument supplied, archiving is skipped.
 ```groovy
-androidBuild andArchive: '**/*.apk'
+androidBuild module: 'myModule', andArchive: '**/*.apk'
 ```
 | argument      | description                                    | type      | mandatory |
 | :-:           | :-:                                            | :-:       | :-:       |
+| module        | The module you wish to build. If not specified, the root module will be used.| String    | ✘         |
 | andArchive    | The path specifying the artifacts to archive   | String    | ✘         |
 
 ### androidLint
 Lints and archives the lint results. If there is no argument supplied, archiving is skipped.
 ```groovy
-androidLint andArchive: '**/lint-results*.*'
+androidLint module: 'myModule', andArchive: '**/lint-results*.*'
 ```
 | argument      | description                                    | type      | mandatory |
 | :-:           | :-:                                            | :-:       | :-:       |
+| module        | The module you wish to lint.  If not specified, the root module will be used.| String    | ✘         |
 | andArchive    | The path specifying the artifacts to archive   | String    | ✘         |
 
 ### androidTest
 Runs the unit tests, archives and publishes the test results. This step ensures that the results are archived/published even if the build fails.
 If there is no argument supplied, archiving/publishing is skipped.
 ```groovy
-androidTest andArchive: '**/test-results/**/*.xml'
+androidTest module: 'myModule', andArchive: '**/test-results/**/*.xml'
 ```
 | argument      | description                                    | type      | mandatory |
 | :-:           | :-:                                            | :-:       | :-:       |
+| module        | The module you wish to test.  If not specified, the root module will be used.| String    | ✘         |
 | andArchive    | The path specifying the artifacts to archive and publish to junit   | String    | ✘         |
 
 ### androidInstrumentationTest
@@ -51,10 +54,11 @@ def stepNames = [
         "adbDeviceId1": "Stage name for Device 1",
         "adbDeviceId2": "Stage name for Device 2"
         ]
-androidInstrumentationTest withScreenOn: true, withLock: 'android-device-farm', withRetryCount: 2, runTrulyParallel: true, withStageNames: stepNames,  andArchive: '**/androidTest-results/connected/*.xml'
+androidInstrumentationTest module: 'myModule', withScreenOn: true, withLock: 'android-device-farm', withRetryCount: 2, runTrulyParallel: true, withStageNames: stepNames,  andArchive: '**/androidTest-results/connected/*.xml'
 ```
 | argument      | description                                    | type      | mandatory |
 | :-:           | :-:                                            | :-:       | :-:       |
+| module        | The module you wish to test.  If not specified, the root module will be used.| String    | ✘         |
 | withScreenOn  | When set to true, turns on the device screens before running the instrumentation tests and turns them off when the instrumentation tests are finished. Set to true by default. | Boolean | ✘ |
 | withLock      | Acquires a lock for the duration of this step, so other steps can not interfere with the devices. | String | ✘ |
 | withRetryCount | Specifies whether this step should be retried a number of times in case the instrumentation test faild. Defaults to 1 | Integer | ✘ |
