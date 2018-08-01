@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurper
 
 def call(Map args) {
-    def module = args['module']?.replace(":", "") ?: ''
+    def module = args['module']?.replace(":", "")?.concat(':') ?: ''
     def screenEnabled = args['withScreenOn'] || args['withScreenOn'] == null
     def retryCount = args['withRetryCount'] ?: 1
     def runTrulyParallel = args['runTrulyParallel']
@@ -14,7 +14,7 @@ def call(Map args) {
 
     Closure simpleCat = {
         retry(retryCount) {
-            sh "./gradlew $module:cAT"
+            sh "./gradlew ${module}cAT"
         }
     }
 

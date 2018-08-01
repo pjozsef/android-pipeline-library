@@ -1,7 +1,7 @@
 def call(Map args){
-    def module = args['module']?.replace(":", "") ?: ''
+    def module = args['module']?.replace(":", "")?.concat(':') ?: ''
     try{
-        sh "./gradlew $module:lint"
+        sh "./gradlew ${module}lint"
     } catch(e){
         currentBuild.result = 'FAILURE'
         throw e
