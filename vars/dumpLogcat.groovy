@@ -5,9 +5,10 @@ def call(Map args) {
 
     if (args['andArchive']) {
         sh 'mkdir -p logs'
-        for (entry in result) {
-            def command = "echo $entry.value > logs/logcat_${entry.key.name}.log"
-            sh command
+        result.each { entry ->
+            def file = new File("${env.WORKSPACE}/logs/logcat_${entry.key.name}.log")
+            file.createNewFile()
+            file.write entry.value
         }
         archiveArtifacts "logs/logcat_*.log"
     }
