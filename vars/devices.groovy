@@ -5,7 +5,7 @@ def call(Map args) {
 
     def lines = devicesRaw(verbose: true).tokenize("\r?\n")
     for (line in lines) {
-        def pattern = ~/^(?<name>[^\s\\]+)\s+(?<status>[a-z]+)\s+(usb:(?<usb>[\w\-\.]+))?(\s*product:(?<product>[-\w]+)\s+model:(?<model>[-\w]+)\s+device:(?<device>[-\w]+)(\stransport_id:(?<transportId>[0-9a-zA-Z]+))?)?$/
+        def pattern = ~/^\s*(?<name>[^\s\\]+)\s+(?<status>[a-z]+)\s+(usb:(?<usb>[\w\-\.]+))?(\s*product:(?<product>[-\w]+)\s+model:(?<model>[-\w]+)\s+device:(?<device>[-\w]+)(\stransport_id:(?<transportId>[0-9a-zA-Z]+))?)?\s*$/
         def matcher = (line =~ pattern)
         if (matcher.matches()) {
             devices += new Device(
